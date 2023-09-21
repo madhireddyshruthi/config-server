@@ -1,0 +1,31 @@
+server:
+  port: 8003
+
+
+
+spring:
+  application:
+    name: CloudGateway
+
+
+
+##GATEWAY CONFIGURATIONS
+  cloud:
+    gateway:
+      routes:
+        
+        - id: Student
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/students/**
+          filters:
+            - StripPrefix=1
+        
+        - id: FeignClient
+          uri: http://localhost:8040/
+          predicates:
+            - Path=/retrieve/**
+          filters:
+            - StripPrefix=1
+
+
